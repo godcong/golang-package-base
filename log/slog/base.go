@@ -1,6 +1,7 @@
 package slog
 
 import (
+	"context"
 	"io"
 	"log/slog"
 	"strings"
@@ -32,6 +33,15 @@ func LogOutputType(w io.Writer, handlerType string, opts *slog.HandlerOptions) *
 func SetLogLevel(opts *slog.HandlerOptions, level string) *slog.HandlerOptions {
 	opts.Level = stringToLevel(level)
 	return opts
+}
+
+func SetLogLevelOnRun(l *slog.Logger, level string) *slog.Logger {
+	l.Enabled(context.Background(), stringToLevel(level))
+	return l
+}
+
+func ChangeGlobalSlogOutput(l *slog.Logger) {
+	slog.SetDefault(l)
 }
 
 func stringToLevel(level string) slog.Level {
