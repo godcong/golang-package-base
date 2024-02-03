@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"strings"
 
+	"github.com/lmittmann/tint"
 	lumberjack "gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -57,4 +58,10 @@ func stringToLevel(level string) slog.Level {
 	default:
 		return slog.LevelDebug
 	}
+}
+
+func Tinted(w io.Writer, opts *tint.Options) *slog.Logger {
+
+	// create a new logger
+	return slog.New(tint.NewHandler(w, opts))
 }
