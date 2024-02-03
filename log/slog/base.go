@@ -61,7 +61,6 @@ func stringToLevel(level string) slog.Level {
 }
 
 func Tinted(w io.Writer, opts *tint.Options) *slog.Logger {
-
 	// create a new logger
 	return slog.New(tint.NewHandler(w, opts))
 }
